@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<h1>Liste des produits</h1>
+<table>
+<tr>
+  <th>Nom du produit</th>
+  <th>Référence</th>
+  <th>Prix (catalogue)</th>
+  <th>Prix remisé</th>
+  <th>Nombre de réaction par échantionns</th>
+  <th>Commentaire</th>
+</tr>
+  {% for product in object_list %}
+<tr>
+    <td>{{product.name}} </td>
+    <td>{{ product.ref }}</td>
+    <td>{{ product.real_cost }}</td>
+    <td>{{ product.reduce_cost }}</td>
+    <td>{{ product.nb_react_by_sample }}</td>
+    <td>{{ product.comment }}</td>
+  {% empty %}
+    <p class="empty"> Pas de produits pour le moment </p>
+</tr>
+  {% endfor %}
+</table>
