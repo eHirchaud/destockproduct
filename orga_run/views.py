@@ -1,8 +1,10 @@
 from django.shortcuts import render
 import csv
 from orga_run.models import Project , Product
+from orga_run.forms import ConnexionForm
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth import authenticate, login
 
 def load_project(file_path):
   reader = csv.DictReader(open(file_path))
@@ -37,4 +39,23 @@ class ProductCreate(CreateView):
 
 class ProductList(ListView):
   model = Product
+
+
+def connexion(request):
+  error = False
+
+  if request.method == "POST":
+    form = ConnexionForm(request.POST)
+    if form.is_valid():
+      username = form.cleaned_data['username']
+      password = form.cleaned_data['password']
+      user = authenticate(username=username, password=password)
+      if user is not None:
+        login(request, user)
+      else:
+        error = True
+  else:
+    form = ConnexionForm()
+
+  return render(request,'orga_run/connexion.html', locals())
 

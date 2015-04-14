@@ -1,3 +1,6 @@
 *.csv
 *.sqlite3
 data/*
+*.pyc
+settings.py
+*.json

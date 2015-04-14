@@ -63,4 +63,12 @@ class ActionProject(models.Model):
   #user = models.ForeignKey(User)
   project = models.ForeignKey(Project)
 
-  
+class Profil(models.Model):
+  user = models.OneToOneField(User)
+  site_web = models.URLField(blank=True)
+  avatar = models.ImageField(null=True, blank=True, upload_to="avatar/")
+  signature = models.TextField(blank = True)
+  inscrit_newlette = models.BooleanField(default=False)
+
+  def __str__(self):
+    return "Profil de {0}".format(self.user.username)
