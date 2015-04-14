@@ -7,8 +7,9 @@
   <th>Référence</th>
   <th>Prix (catalogue)</th>
   <th>Prix remisé</th>
-  <th>Nombre de réaction par échantionns</th>
+  <th>Nombre de réaction par échantion</th>
   <th>Commentaire</th>
+  <th>Editer</th>
 </tr>
   {% for product in object_list %}
 <tr>
@@ -16,7 +17,7 @@
     <td>{{ product.ref }}</td>
     <td>{{ product.real_cost }}</td>
     <td>{{ product.reduce_cost }}</td>
-    <td>{{ product.nb_react_by_sample }}</td>
+    <td>{{ product.nb_react_by_samples }}</td>
     <td>{{ product.comment }}</td>
   {% empty %}
     <p class="empty"> Pas de produits pour le moment </p>

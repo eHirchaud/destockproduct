@@ -13,12 +13,12 @@ class Product(models.Model):
   name = models.CharField(max_length = 100)
   ref = models.CharField(max_length = 50)
 #  conditionement = 
-  real_cost = models.IntegerField()
-  reduce_cost = models.IntegerField()
-  nb_react_by_samples = models.IntegerField()
-  conditionement_nombre = models.DecimalField(decimal_places=2, max_digits = 5)
+  real_cost = models.FloatField()
+  reduce_cost = models.FloatField()
+  nb_react_by_samples = models.FloatField()
+  conditionement_nombre = models.FloatField()
   conditionement_type = models.CharField(max_length=15)
-  reac_by_sample = models.DecimalField(decimal_places=2, max_digits = 5)  
+#  reac_by_sample = models.DecimalField(decimal_places=2, max_digits = 5)  
   comment = models.TextField()
   
 

@@ -1,12 +1,10 @@
 <h1>Projects</h1>
 <ul>
   {% for project in object_list %}
-  <li>{{ project.acro }} :
-    <a href="{% url "project_detail" project.id %}">Détails</a>
-    <a href="{% url "project_edit" project.id %}">Editer</a>
-  </li>
+  <ul>{{ project.acro }} :
+  <li><a href="{% url 'project_detail' project.id %}">{{ project.code }}</a></li>
+  </ul>
   {% empty %}
     <p class="empty"> Pas de projets pour le moment</p>
   {% endfor %}
 </ul>
-<a href="{% url "project_new" %}">Nouveau Projet</a>

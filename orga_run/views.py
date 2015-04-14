@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import csv
 from orga_run.models import Project , Product
-from orga_run.forms import ConnexionForm
+from orga_run.forms import ConnexionForm, DestockageForm
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
@@ -58,4 +58,18 @@ def connexion(request):
     form = ConnexionForm()
 
   return render(request,'orga_run/connexion.html', locals())
+
+def destockage(request):
+  if request.method == "POST":
+    form = DestockageForm(request.POST)
+    if form.is_valid():
+      envoi = True
+  else:
+    form = DestockageForm() 
+  return render(request,'orga_run/destockage.html', locals())
+
+def acceuil(request):
+  return render(request, 'orga_run/acceuil.html', locals())
+
+
 
