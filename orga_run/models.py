@@ -7,6 +7,7 @@ class Project(models.Model):
   code = models.CharField(max_length=8)
   client = models.CharField(max_length=50)
   date_start = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Date de création")
+  
 
 
 class Product(models.Model):

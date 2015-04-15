@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from orga_run.views import ProjectCreate, ProjectList, ProjectEdit, ProjectDetail, ProductCreate, ProductList
+from orga_run.views import ProjectCreate, ProjectList, ProjectEdit, ProjectDetail, ProductCreate, ProductList, LotCreate
 
 urlpatterns = patterns('orga_run.views',
   url(r'^new_project$',  ProjectCreate.as_view(), name='project_new'),
@@ -13,5 +13,6 @@ urlpatterns = patterns('orga_run.views',
   url(r'^new_product', ProductCreate.as_view(), name='product_new'),
   url(r'^list_product$', ProductList.as_view(), name='product_list'),
   
+  url(r'^new_lot$',  LotCreate.as_view(), name='lot_new'),
 
 )

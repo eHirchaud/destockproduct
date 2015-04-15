@@ -40,6 +40,8 @@ class ProductCreate(CreateView):
 class ProductList(ListView):
   model = Product
 
+class LotCreate(CreateView):
+  model = Lot
 
 def connexion(request):
   error = False
