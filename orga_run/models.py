@@ -44,7 +44,7 @@ class StepProto(models.Model):
   reac_by_manip = models.DecimalField(decimal_places=2, max_digits = 5) #Double
 
 
-class Lots(Product):
+class Lot(Product):
   current_stock = models.IntegerField(verbose_name="Nombre de réactions restantes")
   samples = models.ManyToManyField(Sample)
   code_fabricant = models.CharField(max_length = 15)

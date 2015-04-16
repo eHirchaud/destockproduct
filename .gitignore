@@ -4,3 +4,4 @@ data/*
 *.pyc
 settings.py
 *.json
+orga_run/migrations/*

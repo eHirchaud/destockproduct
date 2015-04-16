@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import csv
-from orga_run.models import Project , Product
+from orga_run.models import Project , Product, Lot
 from orga_run.forms import ConnexionForm, DestockageForm
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
@@ -31,6 +31,15 @@ class ProjectDetail(DetailView):
   template_name="orga_run/project_detail.html"
   success_url = reverse_lazy('project_list')
 
+class ProductEdit(UpdateView):
+  model = Product
+  success_url = reverse_lazy('product_edit')
+
+
+class ProductDetail(DetailView):
+  model = Product
+  template_name="orga_run/product_detail.html"
+  success_url = reverse_lazy('product_list')
 
 class ProductCreate(CreateView):
   model = Product
@@ -52,14 +61,14 @@ def connexion(request):
       username = form.cleaned_data['username']
       password = form.cleaned_data['password']
       user = authenticate(username=username, password=password)
-      if user is not None:
+      if user:
         login(request, user)
       else:
         error = True
   else:
     form = ConnexionForm()
 
-  return render(request,'orga_run/connexion.html', locals())
+  return render(request,'connexion.html', locals())
 
 def destockage(request):
   if request.method == "POST":

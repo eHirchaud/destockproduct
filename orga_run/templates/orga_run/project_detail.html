@@ -1,5 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
 <h1>{{ project.acro }} </h1>
 <p>code : {{ project.code  }}</p>
 <p>client : {{ project.client }}</p>
-<p><a href="{% url 'project_edit' project.id %}">Editer le projet</a></p>
+<p><a href="{% url 'project_edit' project.id %}"><span class="glyphicon glyphicon-pencil"></span></a></p>
 <p><a href="{% url 'project_list' %}">Retour Liste projet</a></p>
+{% endblock %}

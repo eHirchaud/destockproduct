@@ -1,7 +1,7 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% extends "base.html" %}
+{% block content %}
 <h1>Liste des produits</h1>
-<table>
+<table class="table table-striped">
 <tr>
   <th>Nom du produit</th>
   <th>Référence</th>
@@ -9,6 +9,7 @@
   <th>Prix remisé</th>
   <th>Nombre de réaction par échantion</th>
   <th>Commentaire</th>
+  <th>Detail</th>
   <th>Editer</th>
 </tr>
   {% for product in object_list %}
@@ -19,8 +20,12 @@
     <td>{{ product.reduce_cost }}</td>
     <td>{{ product.nb_react_by_samples }}</td>
     <td>{{ product.comment }}</td>
+    <td><a href="{% url 'product_detail' product.id %}"><span class="glyphicon glyphicon-search"></span></a> </td>
+    <td><a href="{% url 'product_edit' product.id %}"><span class="glyphicon glyphicon-pencil"></span></a> </td>
   {% empty %}
     <p class="empty"> Pas de produits pour le moment </p>
 </tr>
   {% endfor %}
 </table>
+
+{% endblock %}

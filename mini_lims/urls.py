@@ -8,5 +8,5 @@ urlpatterns = patterns('',
     
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^connexion$', 'orga_run.views.connexion', name='connexion'),
+    url(r'^connexion$', 'orga_run.views.connexion', name ='connexion'),
 )
