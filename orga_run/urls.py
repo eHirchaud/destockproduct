@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from orga_run.views import ProjectCreate, ProjectList,ProjectEdit, ProjectDetail, ProductCreate, ProductList, ProductDetail, ProductEdit, LotCreate
+from orga_run.views import *
 
 urlpatterns = patterns('orga_run.views',
                        url(r'^new_project$',  ProjectCreate.as_view(), name='project_new'),
@@ -17,4 +17,8 @@ urlpatterns = patterns('orga_run.views',
 
                        url(r'^new_lot$',  LotCreate.as_view(), name='lot_new'),
 
+                       url(r'^new_run', RunCreate.as_view(), name='run_new'),
+                       url(r'^list_run$', RunList.as_view(), name='run_list'),
+                       url(r'^edit_run/(?P<pk>\d+)$', RunEdit.as_view(), name='run_edit'),
+                       url(r'^detail_run/(?P<pk>\d+)$', RunDetail.as_view(), name='run_detail'),
                        )

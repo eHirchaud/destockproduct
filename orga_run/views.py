@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import csv
-from orga_run.models import Project, Product, Lot
+from orga_run.models import Project, Product, Lot, Run
 from orga_run.forms import ConnexionForm, DestockageForm
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
@@ -13,6 +13,7 @@ def load_project(file_path):
         project = Project(name=row['Name'], client=['Client'])
         project.save()
 # Create your views here.
+
 
 
 class ProjectCreate(CreateView):
@@ -33,6 +34,7 @@ class ProjectDetail(DetailView):
     model = Project
     template_name = "orga_run/project_detail.html"
     success_url = reverse_lazy('project_list')
+
 
 
 class ProductEdit(UpdateView):
@@ -57,6 +59,21 @@ class ProductList(ListView):
 
 class LotCreate(CreateView):
     model = Lot
+
+
+class RunCreate(CreateView):
+    model = Run
+
+class RunList(ListView):
+    model = Run
+
+class RunEdit(UpdateView):
+    model = Run
+    success_url = reverse_lazy('run_edit')
+
+class RunDetail(DetailView):
+    model = Run
+    success_url = reverse_lazy('run_list')
 
 
 def connexion(request):
