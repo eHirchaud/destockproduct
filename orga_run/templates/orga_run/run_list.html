@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>Liste des Runs</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>Code Run</th>
+			<th>Nombre de projets</th>
+			<th>Nombre d'échantillon</th>
+			<th>Date du Run</th>
+		</tr>
+		{% for run in object_list  %}
+		<tr>
+			<td> {{run.code}} </td>
+			<td> {{run.projects.size}} </td>
+			<td> {{run.projects.samples.size}} </td>
+			<td> TODO : Date</td>
+		</tr>
+			
+		{% empty %}
+			Aucun runs
+		{% endfor %}
+
+	</table>
+{% endblock content %}

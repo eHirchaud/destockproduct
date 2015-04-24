@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import csv
-from orga_run.models import Project, Product, Lot, Run
-from orga_run.forms import ConnexionForm, DestockageForm
+from orga_run.models import Project, Product, Lot, Run, Sample
+from orga_run.forms import ConnexionForm, DestockageForm, UploadRunForm
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
@@ -60,6 +60,16 @@ class ProductList(ListView):
 class LotCreate(CreateView):
     model = Lot
 
+class LotList(ListView):
+    model = Lot
+
+class LotEdit(UpdateView):
+    model = Lot
+    success_url = reverse_lazy('lot_edit')
+
+class LotDetail(DetailView):
+    model = Lot
+    success_url = reverse_lazy('lot_list')
 
 class RunCreate(CreateView):
     model = Run
@@ -75,6 +85,20 @@ class RunDetail(DetailView):
     model = Run
     success_url = reverse_lazy('run_list')
 
+
+class SampleCreate(CreateView):
+    model = Sample
+
+class SampleList(ListView):
+    model = Sample
+
+class SampleEdit(UpdateView):
+    model = Sample
+    success_url = reverse_lazy('sample_edit')
+
+class SampleDetail(DetailView):
+    model = Sample
+    success_url = reverse_lazy('sample_list')
 
 def connexion(request):
     error = False
@@ -107,3 +131,29 @@ def destockage(request):
 
 def acceuil(request):
     return render(request, 'orga_run/acceuil.html', locals())
+
+def uploadRun(request):
+
+    if request.method == 'POST':
+        form = UploadRunForm(request.POST, request.FILES)
+        if form.is_valid():
+            rows = populateRun(request.FILES['file'].read().decode("utf-8"))
+    else:
+            form = UploadRunForm()
+    return render(request,'orga_run/uploadrun.html', locals())
+
+def populateRun(csvfile):
+    reader = csv.DictReader(csvfile, delimiter='\t', quotechar='"')
+    
+    for row in reader:
+        # run = row['P']
+
+       run = Run.objects.get_or_create(code=row['Run'])
+       project = Project.objects.get_or_create(acro=row['Projet'])
+       sample = Sample.objects.get_or_create(code=row['sample'])
+       barcode = row['Barcode']
+       sample.project = project
+       run.projects.add(project)
+       run.samples.add(sample)
+   
+            

@@ -15,3 +15,6 @@ class DestockageForm(forms.Form):
     puce_bio_adn = forms.FloatField(label="Puce BioA ADN")
     puce_bioA_arn_nano = forms.FloatField(label="Puce BioA ARN Nano")
     puce_bioA_arn_pico = forms.FloatField(label="Puce BioA ARN Pico")
+
+class UploadRunForm(forms.Form):
+	file = forms.FileField(label="Fichier de run")
