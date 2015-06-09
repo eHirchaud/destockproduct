@@ -5,7 +5,8 @@ from orga_run.forms import ConnexionForm, DestockageForm, UploadRunForm
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
-
+import chardet
+import io
 
 def load_project(file_path):
     reader = csv.DictReader(open(file_path))
@@ -133,27 +134,46 @@ def acceuil(request):
     return render(request, 'orga_run/acceuil.html', locals())
 
 def uploadRun(request):
-
+    to_upload = True
     if request.method == 'POST':
         form = UploadRunForm(request.POST, request.FILES)
         if form.is_valid():
-            rows = populateRun(request.FILES['file'].read().decode("utf-8"))
+            f = request.FILES['file']
+
+            content = f.read()
+
+            encoding = chardet.detect(content)['encoding']
+            if encoding != 'utf-8':
+                content = content.decode(encoding, 'replace').encode('utf-8')
+
+            
+
+            
+            rows = populateRun(f)
+
+        to_upload = False
     else:
             form = UploadRunForm()
     return render(request,'orga_run/uploadrun.html', locals())
 
 def populateRun(csvfile):
-    reader = csv.DictReader(csvfile, delimiter='\t', quotechar='"')
+    #reader = csv.DictReader(csvfile.read().splitlines(), delimiter='\t')
+    reader = csv.reader(csvfile.read().splitlines())
     
-    for row in reader:
-        # run = row['P']
+    #print(reader)
+    #res = ""
+    #for row in reader:
+        #print(row)
+    # run = row['P']
+        #res = res + row +"<br/>"
+        #run = Run.objects.get_or_create(code=row['Run'])
+        #project = Project.objects.get_or_create(acro=row['Projet'])
+        #sample = Sample.objects.get_or_create(code=row['sample'])
+        ##barcode = row['Barcode']
+        #sample.project = project
+        #run.projects.add(project)
+        #run.samples.add(sample)
 
-       run = Run.objects.get_or_create(code=row['Run'])
-       project = Project.objects.get_or_create(acro=row['Projet'])
-       sample = Sample.objects.get_or_create(code=row['sample'])
-       barcode = row['Barcode']
-       sample.project = project
-       run.projects.add(project)
-       run.samples.add(sample)
-   
+    #print(res)
+    return(res)
             
