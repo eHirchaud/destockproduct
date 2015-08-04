@@ -5,3 +5,4 @@ data/*
 settings.py
 *.json
 orga_run/migrations/*
+*.swp
