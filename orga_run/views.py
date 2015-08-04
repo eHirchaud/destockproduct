@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import authenticate, login
 import chardet
 import io
+import codecs
 
 def load_project(file_path):
     reader = csv.DictReader(open(file_path))
@@ -93,6 +94,7 @@ class SampleCreate(CreateView):
 class SampleList(ListView):
     model = Sample
 
+
 class SampleEdit(UpdateView):
     model = Sample
     success_url = reverse_lazy('sample_edit')
@@ -100,6 +102,7 @@ class SampleEdit(UpdateView):
 class SampleDetail(DetailView):
     model = Sample
     success_url = reverse_lazy('sample_list')
+   
 
 def connexion(request):
     error = False
@@ -140,14 +143,6 @@ def uploadRun(request):
         if form.is_valid():
             f = request.FILES['file']
 
-            content = f.read()
-
-            encoding = chardet.detect(content)['encoding']
-            if encoding != 'utf-8':
-                content = content.decode(encoding, 'replace').encode('utf-8')
-
-            
-
             
             rows = populateRun(f)
 
@@ -157,23 +152,39 @@ def uploadRun(request):
     return render(request,'orga_run/uploadrun.html', locals())
 
 def populateRun(csvfile):
-    #reader = csv.DictReader(csvfile.read().splitlines(), delimiter='\t')
-    reader = csv.reader(csvfile.read().splitlines())
+    
+    #csv = open(csvfile)
+    #reader = csv.reader(csvfile, delimiter=',', quotechar='"')
+    
+    reader = csv.DictReader(codecs.iterdecode(csvfile,'utf-8'), delimiter=',', quotechar='"')
+    
+
+    #reader = csv.reader(csvfile)
+    
+    
     
     #print(reader)
     #res = ""
-    #for row in reader:
-        #print(row)
+    
+    for row in reader:
+       #print (',' .join(row))
+       #print(row['Run'])
     # run = row['P']
         #res = res + row +"<br/>"
-        #run = Run.objects.get_or_create(code=row['Run'])
-        #project = Project.objects.get_or_create(acro=row['Projet'])
-        #sample = Sample.objects.get_or_create(code=row['sample'])
-        ##barcode = row['Barcode']
-        #sample.project = project
-        #run.projects.add(project)
-        #run.samples.add(sample)
+        run_text = row['Run']
+        project_text = row['Projet']
+        sample_text = row['sample']
+    #    barcode = row['Barcode']
+        
+        
+        run, created = Run.objects.get_or_create(code=run_text)
+        project, created = Project.objects.get_or_create(acro=project_text, code=project_text)
+        sample, created_sample = Sample.objects.get_or_create(code=sample_text, project= Project(id = project.id))
+        
+        run.projects.add(project)
+        run.samples.add(sample)
 
     #print(res)
-    return(res)
-            
+    
+    
+    return(run.code)     
