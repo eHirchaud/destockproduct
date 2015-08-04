@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'orga_run',
     'bootstrap3',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (

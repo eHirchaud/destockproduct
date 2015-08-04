@@ -11,5 +11,12 @@ class ProjectAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
   list_display =('name','ref','comment')
   
+class RunAdmin(admin.ModelAdmin):
+	list_display = ('code')
+
+class SampleAdmin(admin.ModelAdmin): 
+	list_display = ('code', 'project')
+
+	
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Product,ProductAdmin)
+admin.site.register(Product, ProductAdmin)
