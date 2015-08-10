@@ -1,5 +1,5 @@
 from django import forms
-from orga_run.models import Project
+from orga_run.models import Project, Manip
 
 
 class ConnexionForm(forms.Form):
@@ -16,5 +16,16 @@ class DestockageForm(forms.Form):
     puce_bioA_arn_nano = forms.FloatField(label="Puce BioA ARN Nano")
     puce_bioA_arn_pico = forms.FloatField(label="Puce BioA ARN Pico")
 
+
 class UploadRunForm(forms.Form):
-	file = forms.FileField(label="Fichier de run")
+    file = forms.FileField(label="Fichier de run")
+    manips = forms.ModelMultipleChoiceField(
+        queryset=Manip.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        cache_choices=True,
+        label="Quoi ?"
+        )
+
+
+class UploadStepForm(forms.Form):
+    file = forms.FileField(label="Fichier de run")

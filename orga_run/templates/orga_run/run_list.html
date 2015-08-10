@@ -11,8 +11,8 @@
 		{% for run in object_list  %}
 		<tr>
 			<td> {{run.code}} </td>
-			<td> {{run.projects.size}} </td>
-			<td> {{run.projects.samples.size}} </td>
+			<td> {{run.projects.count}} </td>
+			<td> {{run.samples.count}} </td>
 			<td> TODO : Date</td>
 		</tr>
 			

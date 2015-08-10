@@ -38,20 +38,23 @@
           <ul class = "nav navbar-nav">
             <li class="active"><a href="{% url 'acceuil' %}">Home</a></li>
             <li><a href="#"></a></li>
-            <li><a href="#">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projets <span class="caret"></span></a>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Operations<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{% url 'project_new' %}">Nouveau</a></li>
-              <li><a href="{% url 'project_list' %}">Liste des projets</a></li>
+              <li><a href="{% url 'uploadRun' %}">Destockage</a></li>
+              <li><a href="/orga_run/todo.html">MAJ prix</a></li>
+              <li><a href="/orga_run/todo.html">Bilan Tarif</a></li>
             </ul><!--dropdown-menu -->
           </li><!-- dropdown -->
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Produits<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Base<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{% url 'product_new' %}">Nouveau Produit</a></li>
-              <li><a href="#">Nouveau Lot</a></li>
-              <li><a href="{% url 'product_list'%}">Liste des prodouits</a></li>
+              <li><a href="{% url 'product_list' %}">Liste des produits</a></li>
+              <li><a href="{% url 'product_list' %}">Coût des produits</a></li>
+              <li><a href="{% url 'lot_list' %}">Stockage actuel</a></li>
+              <li><a href="{% url 'manip_list'%}">Liste des manip</a></li>
+              <li><a href="{% url 'run_list'%}">Liste des run</a></li>
+              <li><a href="{% url 'project_list'%}">Liste des projets</a></li>
             </ul><!--dropdown-menu -->
           </li><!-- dropdown -->
           </ul><!--navbar -->

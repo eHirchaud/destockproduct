@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Liste des manip : Quoi ?</h1>
+ {% for manip in object_list %}
+  <ul><a href="{% url 'manip_detail' manip.id %}">{{ manip.name }}</a></ul>
+  {% empty %}
+    <p class="empty"> Pas de manip pour le moment </p>
+</tr>
+  {% endfor %}
+
+{% endblock %}

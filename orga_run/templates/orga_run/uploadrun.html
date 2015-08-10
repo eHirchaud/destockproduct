@@ -1,15 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>Importation d'un Run</h1>
 	{% if to_upload %}
+	<h1>Importation d'un Run</h1>
 		<form method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{form.as_p}}
 			<input type="submit" value="Submit" />
 		</form>
 	{% else %}
-
-		{{ rows }}
+  <h1> Importation du Run {{run.code}} </h1>
+    {% with l_projet=run.projects.count l_sample=run.samples.count %}
+      <h2>{{ l_projet }} projet{{ l_projet|pluralize }} {{ l_sample }} echantillon{{ l_sample|pluralize}}</h2>
+    {% endwith %}
+    {% for project in run.projects.all %}
+      {% with l_sample_p=project.samples.count %}
+      <h3>{{project.acro}} : {{ l_sample_p }} échantillon{{ l_sample_p|pluralize }}</h3>
+      {% endwith %}
+      {%for sample in project.samples.all %}
+        <ul>{{sample.code}}</ul>
+      {% endfor %}
+      <h3>Manip :</h3>
+      <table class="table table-striped">
+            <tr>
+              <th>Quoi</th>
+              <th>Produit</th>
+              <th>reactif utilisé</th>
+              <th>Coût real</th>
+              <th>Coût reduit</th>
+            </tr>
+        {% for entrie_destock in run.entries_destock.all %}
+           {% ifequal entrie_destock.project project  %}
+            
+              <tr>
+                <td>{{entrie_destock.manip}}</td>
+                <td>{{entrie_destock.product}}</td>
+                <td>{{entrie_destock.count_react}}</td>
+                <td>{{entrie_destock.cost_real}}</td>
+                <td>{{entrie_destock.cost_reduce}}</td>
+              </tr>
+            
+          {% endifequal %}
+        {% endfor %}
+        </table>
+    {% endfor %}
+    
 	{% endif %}
+  
 
 {% endblock content %}

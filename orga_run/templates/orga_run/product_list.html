@@ -4,21 +4,29 @@
 <table class="table table-striped">
 <tr>
   <th>Nom du produit</th>
+  <th>Fournisseur</th>
   <th>Référence</th>
+  <th>Echantillon par lot</th>
   <th>Prix (catalogue)</th>
   <th>Prix remisé</th>
   <th>Nombre de réaction par échantion</th>
+  <th>Prix par echantillon catalogue</th>
+  <th>Prix par echantillon remisé</th>
   <th>Commentaire</th>
   <th>Detail</th>
   <th>Editer</th>
 </tr>
   {% for product in object_list %}
 <tr>
-    <td>{{product.name}} </td>
+    <td>{{ product.name}} </td>
+    <td>{{ product.supplier}}</td>
     <td>{{ product.ref }}</td>
+    <td>{{ product.conditionement_nombre }}</td>
     <td>{{ product.real_cost }}</td>
     <td>{{ product.reduce_cost }}</td>
     <td>{{ product.nb_react_by_samples }}</td>
+    <td>{{ product.real_cost_by_sample}}</td>
+    <td>{{ product.reduce_cost_by_sample}}</td>
     <td>{{ product.comment }}</td>
     <td><a href="{% url 'product_detail' product.id %}"><span class="glyphicon glyphicon-search"></span></a> </td>
     <td><a href="{% url 'product_edit' product.id %}"><span class="glyphicon glyphicon-pencil"></span></a> </td>

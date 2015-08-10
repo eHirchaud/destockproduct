@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{manip.name}}</h1>
+<h2>Produits utilisés et quantités</h2>
+	<table class="table table-striped">
+<tr>
+<th>Produit</th>
+<th>Réaction par échantillons</th>
+<th>Réaction par manip</th>
+</tr>
+{% for step in manip.steps_proto.all %}
+<tr>
+    <td>{{step.product.name}} </td>
+    <td>{{ step.reac_by_sample }}</td>
+    <td>{{ step.reac_by_manip }}</td>
+{% empty %}
+    <p class="empty"> Pas de étapes pour le moment </p>
+</tr>
+  {% endfor %}
+</table>
+{% endblock %}

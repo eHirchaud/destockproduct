@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1> Lot en cours d'utilisation</h1>
+<table class="table table-striped"> 
+<tr>
+	<th>Produit</th>
+	<th>Reac restantes</th>
+	<th>code fabricant</th>
+	<th>code tmpi</th>
+	<th>numeros de lot</th>
+	<th>date d'ouverture</th>
+	<th>date de peremption</th>
+		
+</tr>
+{% for lot in object_list %}
+<tr>
+	<td>{{ lot.product }}</td>
+	<td>{{ lot.current_stock }}</td>
+	<td>{{ lot.code_fabricant }}</td>
+	<td>{{ lot.code_tmpi }}</td>
+	<td>{{ lot.n_lot }}</td>
+	<td>{{ lot.open_date }}</td>
+	<td>{{ lot.peremption_date }}</td>
+</tr>
+{% empty %}
+<p class="empty"> pas de lots enregistré </p>
+{% endfor %}
+</table>
+
+{% endblock %}
