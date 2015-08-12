@@ -13,6 +13,7 @@
 		
 </tr>
 {% for lot in object_list %}
+{% if lot.current = True %}
 <tr>
 	<td>{{ lot.product }}</td>
 	<td>{{ lot.current_stock }}</td>
@@ -22,6 +23,7 @@
 	<td>{{ lot.open_date }}</td>
 	<td>{{ lot.peremption_date }}</td>
 </tr>
+{% endif %}
 {% empty %}
 <p class="empty"> pas de lots enregistré </p>
 {% endfor %}
